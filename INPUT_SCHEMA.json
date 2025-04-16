@@ -1,0 +1,28 @@
+{
+    "title": "Instagram DM Automation Input Schema",
+    "description": "Input required to automate sending DMs on Instagram.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+      "sessionCookie": {
+        "title": "Instagram Session Cookie",
+        "type": "string",
+        "description": "Your valid Instagram sessionid cookie value.",
+        "editor": "textfield"
+      },
+      "usernames": {
+        "title": "Instagram Usernames",
+        "type": "array",
+        "description": "List of Instagram usernames to send messages to.",
+        "editor": "stringList"
+      },
+      "message": {
+        "title": "Message Text",
+        "type": "string",
+        "description": "The message you want to send to each user.",
+        "editor": "textarea"
+      }
+    },
+    "required": ["sessionCookie", "usernames", "message"]
+  }
+  
