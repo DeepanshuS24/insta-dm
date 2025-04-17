@@ -1,18 +1,15 @@
-# Use base image with Chromium and Playwright preinstalled
-FROM apify/actor-node-playwright:latest
+# Use Apify's Puppeteer + Chrome base image (Node.js 16)
+FROM apify/actor-node-puppeteer-chrome:16
 
-# Set working directory
-WORKDIR /app
+# Set environment variables to use the preinstalled Chrome and skip Chromium download
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
-# Switch to root for permission fixes
-USER root
+# Copy all files to the container
+COPY . ./
 
-# Copy dependency files and install as root
-COPY package.json package-lock.json ./
+# Install dependencies
 RUN npm install
 
-# Copy the rest of the code
-COPY . .
-
-# Run the script
+# Set the entrypoint (Apify runs this command)
 CMD ["node", "main.js"]
