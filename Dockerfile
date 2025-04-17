@@ -1,20 +1,27 @@
-# Use Apify's official Playwright base image
+# Use Apify base image with Playwright (includes Puppeteer + Chromium)
 FROM apify/actor-node-playwright:latest
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy dependency files first (for better caching)
+# Copy files
 COPY package.json package-lock.json ./
+COPY . .
+
+# Switch to root user to install packages and fix permissions
+USER root
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of your application
-COPY . .
+# Set correct permissions for the node user
+RUN chown -R node:node /app
 
-# Set Puppeteer executable path (for compatibility with Playwright setup)
+# Switch back to node user
+USER node
+
+# Set path to Chromium
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-# (Optional) If you plan to run your app using CMD or ENTRYPOINT, you can set that here
-# CMD ["node", "main.js"]
+# Start the app
+CMD ["node", "main.js"]
