@@ -1,11 +1,11 @@
-# Use Apify's official Puppeteer-ready image
-FROM apify/actor-node-puppeteer:16
+# Use the official Apify image with Puppeteer and Node.js
+FROM apify/actor-node-puppeteer:latest
 
-# Copy everything from your local project into the Docker image
+# Copy all files to the container
 COPY . ./
 
-# Install your dependencies
+# Install dependencies
 RUN npm install
 
-# Define the default command to run your actor
+# Start script
 CMD ["npm", "start"]
