@@ -1,20 +1,21 @@
-# Use base image with Chromium + Playwright
+# Use base image with Chromium and Playwright preinstalled
 FROM apify/actor-node-playwright:latest
 
 # Set working directory
 WORKDIR /app
 
-# Copy files
-COPY package.json package-lock.json ./
+# Switch to root for permission fixes
+USER root
 
-# Install dependencies as root (don't switch users)
+# Copy dependency files and install as root
+COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy rest of the files
+# Copy the rest of the code
 COPY . .
 
-# Optional: for compatibility with Puppeteer-style launch
+# Optional Puppeteer chromium path env var
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-# Run your script (main.js should be your entry point)
+# Run the script
 CMD ["node", "main.js"]
