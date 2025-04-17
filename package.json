@@ -1,1 +1,1 @@
-{"name":"instagram-dm-automation","version":"1.0.0","description":"Instagram DM automation script using Puppeteer","main":"main.js","scripts":{"start":"node main.js", "postinstall": "puppeteer install"},"dependencies":{"apify":"^3.0.0","puppeteer":"^24.6.1"}}
+{"name":"instagram-dm-automation","version":"1.0.0","description":"Instagram DM automation script using Puppeteer","main":"main.js","scripts":{"start":"node main.js","postinstall":"puppeteer install"},"dependencies":{"apify":"^3.0.0","puppeteer":"^24.6.1"}}
