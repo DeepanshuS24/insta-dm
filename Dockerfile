@@ -1,23 +1,20 @@
+# Use Apify's official Playwright base image
 FROM apify/actor-node-playwright:latest
 
-# Change to the working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy your files
+# Copy dependency files first (for better caching)
 COPY package.json package-lock.json ./
-COPY . .
 
 # Install dependencies
 RUN npm install
 
-# Set environment variables for Puppeteer/Playwright (important for headless environments like Apify)
+# Copy the rest of your application
+COPY . .
+
+# Set Puppeteer executable path (for compatibility with Playwright setup)
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-# Make sure everything is accessible
-RUN chown -R node:node /app
-
-# Set user to 'node' (Apify runs as node user)
-USER node
-
-# Define the command to run your script
-CMD ["node", "main.js"]
+# (Optional) If you plan to run your app using CMD or ENTRYPOINT, you can set that here
+# CMD ["node", "main.js"]
