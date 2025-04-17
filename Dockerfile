@@ -14,8 +14,5 @@ RUN npm install
 # Copy the rest of the code
 COPY . .
 
-# Optional Puppeteer chromium path env var
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-
 # Run the script
 CMD ["node", "main.js"]
